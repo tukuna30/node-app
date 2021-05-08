@@ -1,3 +1,4 @@
+const userUtil = require("./utils/UserUtil");
 const express = require("express");
 const app = express();
 app.use(
@@ -26,6 +27,31 @@ app.get("/", (req, res) => {
 
 app.get("/contact", (req, res) => {
   res.render("contacts");
+});
+
+app.get("/userslist", (req, res) => {
+  let users = userUtil.getUsers();
+  return res.json({ users });
+});
+
+app.post("/user", (req, res) => {
+  let user = req.body;
+  let u = userUtil.addUser(user);
+  return res.json({ user: u });
+});
+
+app.put("/user/:id", (req, res) => {
+  // id = req.params.id
+  // Make a call to userUtil and update user
+  // userUtil.updateUser(id, req.body);
+  return res.json({ message: "TBD" });
+});
+
+app.delete("/user/:id", (req, res) => {
+  // id = req.params.id
+  // Make a call to userUtil and delete user
+  // userUtil.deleteUser(id);
+  return res.json({ message: "TBD" });
 });
 
 app.get("/users", async (req, res) => {
