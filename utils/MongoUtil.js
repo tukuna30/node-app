@@ -1,10 +1,11 @@
 const { MongoClient } = require("mongodb");
-const uri =
-  "mongodb+srv://Smera:smera@cluster0.rynfj.mongodb.net/users?retryWrites=true&w=majority";
+const getUri = (db) => {
+  return `mongodb+srv://Smera:smera@cluster0.rynfj.mongodb.net/${db}?retryWrites=true&w=majority`;
+};
 
 class MongoUtil {
-  constructor() {
-    this.client = new MongoClient(uri, {
+  constructor(dbName = "users") {
+    this.client = new MongoClient(getUri(dbName), {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -16,4 +17,4 @@ class MongoUtil {
   }
 }
 
-module.exports = new MongoUtil();
+module.exports = MongoUtil;
