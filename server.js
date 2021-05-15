@@ -44,6 +44,12 @@ app.get("/userslist", (req, res) => {
   return res.json({ users });
 });
 
+app.get("/user/:id", (req, res) => {
+  const id = req.params.id;
+  let user = userUtil.getUser(id);
+  return res.json({ user });
+});
+
 app.post("/user", (req, res) => {
   let user = req.body;
   let u = userUtil.addUser(user);
@@ -51,17 +57,17 @@ app.post("/user", (req, res) => {
 });
 
 app.put("/user/:id", (req, res) => {
-  // id = req.params.id
+  const id = req.params.id;
   // Make a call to userUtil and update user
-  // userUtil.updateUser(id, req.body);
-  return res.json({ message: "TBD" });
+  const user = userUtil.updateUser(id, req.body);
+  return res.json({ user });
 });
 
 app.delete("/user/:id", (req, res) => {
-  // id = req.params.id
+  const id = req.params.id;
   // Make a call to userUtil and delete user
-  // userUtil.deleteUser(id);
-  return res.json({ message: "TBD" });
+  userUtil.deleteUser(id);
+  return res.json({ success: true });
 });
 
 app.get("/users", async (req, res) => {

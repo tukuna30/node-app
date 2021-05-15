@@ -16,6 +16,17 @@ class UserUtil {
     return users;
   }
 
+  getUser(id) {
+    if (typeof id !== "number") {
+      id = parseInt(id, 10);
+    }
+    const user = users.find(function (u) {
+      return u.id === id;
+    });
+
+    return user || {};
+  }
+
   addUser(user) {
     user = { ...user, id: users.length + 1 };
     users.push(user);
@@ -23,13 +34,32 @@ class UserUtil {
   }
 
   updateUser(id, updates) {
-    const user = users.find(function (u) {
-      return u.id === id;
+    if (typeof id !== "number") {
+      id = parseInt(id, 10);
+    }
+    let userIndex = -1;
+    let user = users.find(function (u, i) {
+      if (u.id === id) {
+        userIndex = i;
+        return true;
+      }
     });
-    user = { ...user, ...updates };
-    return user;
+    users[userIndex] = { ...user, ...updates };
+    return users[userIndex];
   }
-  deleteUser(id) {}
+  deleteUser(id) {
+    if (typeof id !== "number") {
+      id = parseInt(id, 10);
+    }
+    let userIndex = -1;
+    let user = users.find(function (u, i) {
+      if (u.id === id) {
+        userIndex = i;
+        return true;
+      }
+    });
+    users.splice(userIndex, 1);
+  }
 }
 
 module.exports = new UserUtil();
