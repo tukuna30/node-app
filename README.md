@@ -9,5 +9,5 @@ Steps:
 
 - Clone the repo
 - cd to the folder
-- Run ** npm start**
+- Run **npm start**
 - Open localhost:5001 in your browser
