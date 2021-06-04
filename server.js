@@ -4,6 +4,12 @@ const ObjectId = require("mongodb").ObjectId;
 const express = require("express");
 const cors = require("cors");
 const app = express();
+
+const todos = [
+  { id: 1, title: "Bring food" },
+  { id: 2, title: "Read C++" },
+];
+
 app.use(
   cors({
     origin: "http://localhost:3030",
@@ -44,6 +50,20 @@ app.get("/userslist", (req, res) => {
   return res.json({ users });
 });
 
+app.get("/todos", (req, res) => {
+  return res.json({
+    todos,
+  });
+});
+
+// app.get("/todos/:id", (req, res) => {
+//   const id = req.params.id;
+
+//   return res.json({
+//     todos,
+//   });
+// });
+
 app.get("/user/:id", (req, res) => {
   const id = req.params.id;
   let user = userUtil.getUser(id);
@@ -71,7 +91,9 @@ app.delete("/user/:id", (req, res) => {
 });
 
 app.get("/users", async (req, res) => {
-  let mongoUtil = await new MongoUtil().connect();
+  let mongoUtil = await new MongoUtil("users");
+  await mongoUtil.connect();
+
   const usersCursor = mongoUtil.client.db("users").collection("user").find();
   // function iterateFunc(doc) {
   //   users.push(doc);
