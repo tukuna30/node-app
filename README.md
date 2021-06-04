@@ -9,7 +9,5 @@ Steps:
 
 - Clone the repo
 - cd to the folder
-- Run npm install
-- Run node index.js
-- Open localhost:3000 in your browser
-- It contains two pages "/" and "/help"
+- Run ** npm start**
+- Open localhost:5001 in your browser
